@@ -1,36 +1,39 @@
 package com.spring.test.controller;
 
-import com.spring.test.dto.TestDTO;
+import com.spring.test.dto.TestRequestDto;
+import com.spring.test.dto.TestResponseDto;
 import com.spring.test.service.TestService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/post")
+@RequestMapping("/api")
 public class TestController {
 
-    @Autowired
-    private TestService testService;
+    private final TestService testService;
 
-    @PostMapping
-    public TestDTO createItem(@RequestBody TestDTO testDTO) {
-        return testService.createItem(testDTO);
+    public TestController(TestService testService) {
+        this.testService = testService;
     }
 
-    @GetMapping
-    public List<TestDTO> getAllItems() {
-        return testService.getAllItems();
+    @PostMapping("/posts")
+    public TestResponseDto createPost(@RequestBody TestRequestDto requestDto) {
+        return testService.createPost(requestDto);
     }
 
-    @PutMapping("/{id}")
-    public TestDTO updateItem(@PathVariable Long id, @RequestBody TestDTO testDTO) {
-        return testService.updateItem(id, testDTO);
+    @GetMapping("/posts")
+    public List<TestResponseDto> getPosts() {
+        return testService.getPosts();
     }
 
-    @DeleteMapping("/{id}")
-    public void deleteItem(@PathVariable Long id) {
-        testService.deleteItem(id);
+    @PutMapping("/posts/{id}")
+    public TestResponseDto updatePost(@PathVariable Long id, @RequestBody TestRequestDto requestDto) {
+        return testService.updatePost(id, requestDto);
+    }
+
+    @DeleteMapping("/posts/{id}")
+    public Long deletePost(@PathVariable Long id) {
+        return testService.deletePost(id);
     }
 }
