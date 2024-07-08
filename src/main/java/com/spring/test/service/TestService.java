@@ -46,8 +46,7 @@ public class TestService {
         return new TestResponseDto(updatedEntity);
     }
 
-    public Long deletePost(Long id) {
+    public void deletePost(Long id) {
         testRepository.deleteById(id);
-        return id;
     }
 }

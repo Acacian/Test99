@@ -6,9 +6,10 @@ import com.spring.test.service.TestService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/")
 public class TestController {
 
     private final TestService testService;
@@ -17,23 +18,24 @@ public class TestController {
         this.testService = testService;
     }
 
-    @PostMapping("/posts")
+    @PostMapping("/post")
     public TestResponseDto createPost(@RequestBody TestRequestDto requestDto) {
         return testService.createPost(requestDto);
     }
 
-    @GetMapping("/posts")
+    @GetMapping("/post")
     public List<TestResponseDto> getPosts() {
         return testService.getPosts();
     }
 
-    @PutMapping("/posts/{id}")
+    @PutMapping("/post/{id}")
     public TestResponseDto updatePost(@PathVariable Long id, @RequestBody TestRequestDto requestDto) {
         return testService.updatePost(id, requestDto);
     }
 
-    @DeleteMapping("/posts/{id}")
-    public Long deletePost(@PathVariable Long id) {
-        return testService.deletePost(id);
+    @DeleteMapping("/post/{id}")
+    public Map<String, String> deletePost(@PathVariable Long id) {
+        testService.deletePost(id);
+        return Map.of("msg", "삭제완료");
     }
 }
