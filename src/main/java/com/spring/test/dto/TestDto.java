@@ -1,15 +1,7 @@
-package com.spring.test.entity;
+package com.spring.test.dto;
 
-import javax.persistence.*;
-
-@Entity
-@Table(name = "items")
-public class TestEntity {
-    
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class TestDTO {
     private Long id;
-
     private String title;
     private String content;
     private int price;
